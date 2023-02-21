@@ -1,0 +1,31 @@
+<img id="animated-mascot" src="https://s3.gifyu.com/images/Oanl.gif" style="position: fixed; bottom: 0; right: 0; cursor: move; z-index: 9999;">
+<script>
+  const mascot = document.getElementById("animated-mascot");
+  mascot.addEventListener("mousedown", startDragging);
+
+  function startDragging(event) {
+    let shiftX = event.clientX - mascot.getBoundingClientRect().left;
+    let shiftY = event.clientY - mascot.getBoundingClientRect().top;
+
+    moveAt(event.pageX, event.pageY);
+
+    function moveAt(pageX, pageY) {
+      mascot.style.left = pageX - shiftX + "px";
+      mascot.style.top = pageY - shiftY + "px";
+    }
+
+    function onMouseMove(event) {
+      moveAt(event.pageX, event.pageY);
+    }
+
+    function stopDragging() {
+      document.removeEventListener("mousemove", onMouseMove);
+      mascot.removeEventListener("mouseup", stopDragging);
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+    mascot.addEventListener("mouseup", stopDragging);
+
+    event.preventDefault();
+  }
+</script>

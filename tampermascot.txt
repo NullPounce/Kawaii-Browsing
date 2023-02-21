@@ -1,0 +1,47 @@
+// ==UserScript==
+// @name Animated Mascot
+// @version 0.1
+// @description test
+// @match        *://*/*
+// @run-at document-end
+// ==/UserScript==
+
+
+// Add the mascot to the page
+const mascot = document.createElement("img");
+mascot.src = "https://s3.gifyu.com/images/Oanl.gif";
+mascot.style.position = "fixed";
+mascot.style.bottom = "0";
+mascot.style.right = "0";
+mascot.style.cursor = "move"; // set the cursor to indicate that it can be moved
+mascot.addEventListener("mousedown", startDragging); // add event listener for mouse down event
+document.body.appendChild(mascot);
+
+// Define the startDragging function
+function startDragging(event) {
+  let shiftX = event.clientX - mascot.getBoundingClientRect().left;
+  let shiftY = event.clientY - mascot.getBoundingClientRect().top;
+
+  moveAt(event.pageX, event.pageY);
+
+  function moveAt(pageX, pageY) {
+    mascot.style.left = pageX - shiftX + "px";
+    mascot.style.top = pageY - shiftY + "px";
+  }
+
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
+
+  function stopDragging() {
+    document.removeEventListener("mousemove", onMouseMove);
+    mascot.removeEventListener("mouseup", stopDragging);
+  }
+
+  // Add event listeners for mousemove and mouseup events
+  document.addEventListener("mousemove", onMouseMove);
+  mascot.addEventListener("mouseup", stopDragging);
+
+  // Prevent default behavior of dragging the image as an object in the browser
+  event.preventDefault();
+}
