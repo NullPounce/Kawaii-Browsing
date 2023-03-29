@@ -4,7 +4,7 @@
 
 <div align="center">
   <a href="https://github.com/NullPounce/Kawaii-Browsing">
-    <img src="https://www.nullpounce.com/assets/hk.gif" 
+    <img src="https://github.com/NullPounce/Kawaii-Browsing/blob/main/hk.gif?raw=true" 
   </a>
 
 
